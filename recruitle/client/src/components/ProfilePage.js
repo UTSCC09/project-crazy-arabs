@@ -3,8 +3,9 @@ import { GET_USER } from '../queries/queries';
 import { getUsername } from './api.js';
 import React from "react";
 
-export default function ProfilePage() {
+export default function ProfilePage(props) {
     const username = getUsername();
+    console.log(username)
     const { loading, error, data } = useQuery(GET_USER, {
         variables: { id: username }
     });
@@ -22,9 +23,23 @@ export default function ProfilePage() {
         }
     };
 
-    return (
-        <div>
-            {displayUserDetails()}
-        </div>
-    );
+    function authResolver(){
+        if (!props.isSignedIn){
+            console.log("shouldnt be here!")
+            window.location.href = '/';
+        } else {
+            console.log("please be here!")
+            return (
+                <div>
+                    {displayUserDetails()}
+                </div>
+            );
+        }
+      }
+    
+      return (
+        <React.Fragment>
+          {authResolver()}
+        </React.Fragment>
+      );
 };
