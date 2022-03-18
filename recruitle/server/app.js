@@ -12,12 +12,6 @@ const auth = require('./auth');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-var root = {
-  hello: resolvers.hello(),
-  boy: resolvers.boy(),
-  user: resolvers.user(),
-};
-
 const cookie = require('cookie');
 
 const session = require('express-session');
@@ -38,7 +32,6 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: root,
   graphiql: true,
 }));
 
