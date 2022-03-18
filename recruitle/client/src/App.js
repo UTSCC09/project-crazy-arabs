@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -11,10 +11,10 @@ import {
 } from "react-router-dom";
 import AboutPage from './components/AboutPage';
 import ProfilePage from './components/ProfilePage';
-import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
 import SignUpPage from './components/Auth/SignUpPage';
 import NavBar from './components/NavBar';
+import { getUsername } from './components/api';
 
 // apollo client setup
 const client = new ApolloClient({
@@ -23,14 +23,22 @@ const client = new ApolloClient({
 });
 
 export default function BasicExample() { 
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    if(getUsername() !== ''){
+      setIsSignedIn(true);
+    } 
+  });
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <NavBar/>
         <Routes>
-          <Route path='/signin' element={<SignIn />}/>
-          <Route path='/signup' element={<SignUpPage />}/>
-          <Route path='/profile' element={<ProfilePage />}/>
+          <Route path='/signin' element={<SignIn isSignedIn={isSignedIn} />}/>
+          <Route path='/signup' element={<SignUpPage isSignedIn={isSignedIn}/>}/>
+          <Route path='/profile' element={<AboutPage isSignedIn={isSignedIn}/>}/>
         </Routes>
       </Router>
     </ApolloProvider>
