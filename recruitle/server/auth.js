@@ -43,7 +43,7 @@ module.exports = {
                 if (!result) return res.status(401).end("access denied"); 
                 console.log("email is" + user.email)
                 req.session.email = result.email;  
-                res.setHeader('Set-Cookie', cookie.serialize('username', user.email, {
+                res.setHeader('Set-Cookie', cookie.serialize('username', user.id, {
                     path : '/', 
                     maxAge: 60 * 60 * 24 * 7
                 }));

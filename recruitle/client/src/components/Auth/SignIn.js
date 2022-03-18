@@ -53,7 +53,7 @@ export default function SignIn() {
         setSnackBarOpen(true);
         setSnackBarMsg("Welcome " + user.firstName);
         setSeverity("success");
-        setTimeout(function(){window.location.href = '/';}, 1000);
+        setTimeout(function(){window.location.href = '/';}, 500);
       }
     });
   };

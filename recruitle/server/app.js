@@ -5,8 +5,9 @@ const app = express();
 const https = require('https');
 const fs = require('fs');
 const path = require("path");
-const resolvers = require('./graphql/resolvers');
-const schema = buildSchema(require("./graphql/schema.js")());
+//const resolvers = require('./graphql/resolvers');
+const schema = require('./graphql/schema');
+//const schema = buildSchema(require("./graphql/schema.js")());
 const auth = require('./auth');
 
 const bodyParser = require('body-parser');
