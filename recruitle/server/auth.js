@@ -90,10 +90,13 @@ module.exports = {
                      bcrypt.compare(password, user.password, function(err, result) {
                         if (err) return res.status(500).end("error");
                         if (!result) return res.status(401).end("access denied"); 
-                        res.setHeader('Set-Cookie', cookie.serialize('username', user.id, {
+                        res.setHeader('Set-Cookie', [cookie.serialize('username', user.id, {
                             path : '/', 
                             maxAge: 60 * 60 * 24 * 7
-                        }));
+                        }), cookie.serialize('userType', user.userType, {
+                            path : '/', 
+                            maxAge: 60 * 60 * 24 * 7 // 1 week in number of seconds
+                        })]);
                         return res.json(user);
                     })
                 });
@@ -105,7 +108,7 @@ module.exports = {
                     res.setHeader('Set-Cookie', [cookie.serialize('username', user.id, {
                         path : '/', 
                         maxAge: 60 * 60 * 24 * 7
-                    }), cookie.serialize('userType', '', {
+                    }), cookie.serialize('userType', user.userType, {
                         path : '/', 
                         maxAge: 60 * 60 * 24 * 7 // 1 week in number of seconds
                     })]);
