@@ -41,10 +41,8 @@ export default function ProfilePage(props) {
 
     function authResolver(){
         if (!props.isSignedIn){
-            console.log("shouldnt be here!")
             navigate('/')
         } else {
-            console.log("please be here!")
             if (userType == "applicant") {
                 return (
                     <div>
