@@ -13,5 +13,5 @@ export function send(method, url, data, callback){
 }  
 
 export function getUsername(){
-    return document.cookie.split(":")[0].replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    return document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 }
