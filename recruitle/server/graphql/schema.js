@@ -30,6 +30,12 @@ const EmployerType = new GraphQLObjectType({
     id: { type: GraphQLID },
     email: { type: GraphQLString },
     companyName: { type: GraphQLString },
+    // jobs: {
+    //   type: new GraphQLList(BookType),
+    //    resolve(parent, args) {
+    //      return Jobs.find({employerId: parent.id });
+    //    }
+    // }
   })
 });
 

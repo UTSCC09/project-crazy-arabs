@@ -72,7 +72,7 @@ export default function SignIn(props) {
 
   function authResolver(){
     if (props.isSignedIn){
-      navigate('/')
+      navigate('/profile')
     } else {
       return (  
         <Paper style={styles.paperContainer}>
