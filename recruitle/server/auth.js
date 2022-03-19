@@ -93,7 +93,7 @@ module.exports = {
                         res.setHeader('Set-Cookie', [cookie.serialize('username', user.id, {
                             path : '/', 
                             maxAge: 60 * 60 * 24 * 7
-                        }), cookie.serialize('userType', user.userType, {
+                        }), cookie.serialize('userType', 'employer', {
                             path : '/', 
                             maxAge: 60 * 60 * 24 * 7 // 1 week in number of seconds
                         })]);
@@ -108,7 +108,7 @@ module.exports = {
                     res.setHeader('Set-Cookie', [cookie.serialize('username', user.id, {
                         path : '/', 
                         maxAge: 60 * 60 * 24 * 7
-                    }), cookie.serialize('userType', user.userType, {
+                    }), cookie.serialize('userType', 'applicant', {
                         path : '/', 
                         maxAge: 60 * 60 * 24 * 7 // 1 week in number of seconds
                     })]);

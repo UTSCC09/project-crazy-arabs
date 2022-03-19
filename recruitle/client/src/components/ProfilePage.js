@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { GET_USER } from '../queries/queries';
-import { getUsername } from './api.js';
+import { GET_EMPLOYER, GET_APPLICANT } from '../queries/queries';
+import { getUsername, getUsertype } from './api.js';
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -8,13 +8,14 @@ export default function ProfilePage(props) {
     const navigate = useNavigate();
 
     const username = getUsername();
-    console.log(username)
-    const { loading, error, data } = useQuery(GET_USER, {
+    const userType = getUsertype();
+
+    const { loading, error, data } = useQuery((userType == "applicant" ? GET_APPLICANT : GET_EMPLOYER), {
         variables: { id: username }
     });
 
-    const displayUserDetails = () => {
-        if (data && data.applicant) {
+    const displayApplicantDetails = () => {   
+        if (data && data.applicant) { 
             return (
                 <div>
                 <h2>{ data.applicant.id }</h2>
@@ -26,17 +27,37 @@ export default function ProfilePage(props) {
         }
     };
 
+    const displayEmployerDetails = () => {
+        if (data && data.employer) {
+            return (
+                <div>
+                <h2>{ data.employer.id }</h2>
+                <p>{ data.employer.companyName }</p>
+                <p>{ data.employer.email }</p>
+                </div>
+            );
+        }
+    };
+
     function authResolver(){
         if (!props.isSignedIn){
             console.log("shouldnt be here!")
             navigate('/')
         } else {
             console.log("please be here!")
-            return (
-                <div>
-                    {displayUserDetails()}
-                </div>
-            );
+            if (userType == "applicant") {
+                return (
+                    <div>
+                        {displayApplicantDetails()}
+                    </div>
+                );
+            } else {
+                return (
+                    <div>
+                        {displayEmployerDetails()}
+                    </div>
+                );
+            }
         }
       }
     
